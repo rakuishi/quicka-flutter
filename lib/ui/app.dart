@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -91,7 +92,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _handleSubmitted(String text) {
-    // do something
+    _textController.clear();
+    if (text.length > 0) {
+      _launchURL("http://www.google.com/search?q=${Uri.encodeComponent(text)}");
+    }
+  }
+
+  void _launchURL(urlString) async {
+    if (await canLaunch(urlString)) {
+      launch(urlString);
+    } else {
+      debugPrint('Could not launch $urlString');
+    }
   }
 
   void _pushHistory() {
