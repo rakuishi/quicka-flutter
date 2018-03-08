@@ -31,10 +31,12 @@ class HistoryRepository {
     return save(<History>[]);
   }
 
-  Future<Null> add(History history) async {
-    return await findAll().then((histories) {
+  Future<History> add(History history) async {
+    await findAll().then((histories) {
       histories.add(history);
-      return save(histories);
+      save(histories);
     });
+
+    return new Future.value(history);
   }
 }

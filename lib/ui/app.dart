@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:quicka/repository/history_repository.dart';
+import 'package:quicka/model/history.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,6 +22,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _textController = new TextEditingController();
+  final HistoryRepository _historyRepository = new HistoryRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _handleSubmitted(String text) {
     _textController.clear();
     if (text.length > 0) {
-      _launchURL("http://www.google.com/search?q=${Uri.encodeComponent(text)}");
+      _historyRepository
+          .add(new History(text))
+          .then((history) => debugPrint(history.toString()))
+          .whenComplete(() => _launchURL(
+              "http://www.google.com/search?q=${Uri.encodeComponent(text)}"));
     }
   }
 

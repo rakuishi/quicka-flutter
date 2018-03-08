@@ -4,15 +4,17 @@ part 'history.g.dart';
 
 @JsonSerializable()
 class History extends Object with _$HistorySerializerMixin {
+  int id;
   String name;
-  int createdAt;
-  int updatedAt;
 
   History(String name) {
-    var unixTime = new DateTime.now().millisecondsSinceEpoch;
+    this.id = new DateTime.now().millisecondsSinceEpoch;
     this.name = name;
-    this.createdAt = unixTime;
-    this.updatedAt = unixTime;
+  }
+
+  @override
+  String toString() {
+    return 'History { id: $id, name: $name }';
   }
 
   factory History.fromJson(Map<String, dynamic> json) =>
