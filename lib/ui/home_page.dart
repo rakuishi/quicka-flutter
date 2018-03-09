@@ -47,8 +47,16 @@ class _HomePageState extends State<HomePage> {
       padding: new EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
         if (i.isOdd) return new Divider();
-        // final index = i ~/ 2;
-        return new ListViewItem();
+        return new ListTile(
+          title: new Text('URL'),
+          leading: new Icon(
+            Icons.favorite,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () {
+            // do something
+          },
+        );
       },
       itemCount: 10,
     );
@@ -89,7 +97,7 @@ class _HomePageState extends State<HomePage> {
           .add(new History(text))
           .then((history) => debugPrint(history.toString()))
           .whenComplete(() => _launchURL(
-          "http://www.google.com/search?q=${Uri.encodeComponent(text)}"));
+              "http://www.google.com/search?q=${Uri.encodeComponent(text)}"));
     }
   }
 
@@ -102,26 +110,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _pushHistory() {
-    // do something
+    Navigator.of(context).pushNamed('/history');
   }
 
   void _pushSettings() {
     // do something
-  }
-}
-
-class ListViewItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new ListTile(
-      title: new Text('URL'),
-      leading: new Icon(
-        Icons.favorite,
-        color: Theme.of(context).accentColor,
-      ),
-      onTap: () {
-        // do something
-      },
-    );
   }
 }
