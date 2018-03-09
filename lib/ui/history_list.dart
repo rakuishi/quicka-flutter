@@ -49,7 +49,7 @@ class _HistoryListState extends State<HistoryList> {
               color: Theme.of(context).accentColor,
             ),
             onTap: () {
-              // do something
+              Navigator.of(context).pop(history);
             });
       },
       itemCount: _histories.length * 2,
