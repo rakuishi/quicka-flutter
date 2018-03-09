@@ -19,7 +19,9 @@ class _HomePageState extends State<HomePage> {
         title: new Text('Quicka'),
         actions: <Widget>[
           new IconButton(
-              icon: new Icon(Icons.settings), onPressed: _pushSettings),
+            icon: new Icon(Icons.settings),
+            onPressed: _pushSettings,
+          ),
         ],
       ),
       body: new Container(
@@ -44,9 +46,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildListView() {
     return new ListView.builder(
-      padding: new EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
+        if (i.isOdd) return new Divider(height: 1.0);
+
         return new ListTile(
           title: new Text('URL'),
           leading: new Icon(

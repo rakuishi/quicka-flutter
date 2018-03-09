@@ -34,32 +34,39 @@ class _HistoryListState extends State<HistoryList> {
     if (_histories.isEmpty) return [];
 
     return <Widget>[
-      new IconButton(icon: new Icon(Icons.delete), onPressed: _handleDelete),
+      new IconButton(
+        icon: new Icon(Icons.delete),
+        onPressed: _handleDelete,
+      ),
     ];
   }
 
   Widget _buildEmptyView() {
     return new Center(
-        child: new Text('There is no item.',
-            style: Theme.of(context).textTheme.display1));
+      child: new Text(
+        'There is no item.',
+        style: Theme.of(context).textTheme.display1,
+      ),
+    );
   }
 
   Widget _buildListView() {
     return new ListView.builder(
-      padding: new EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
+        if (i.isOdd) return new Divider(height: 1.0);
+
         final index = i ~/ 2;
         final history = _histories[index];
         return new ListTile(
-            title: new Text(history.name),
-            leading: new Icon(
-              Icons.history,
-              color: Theme.of(context).accentColor,
-            ),
-            onTap: () {
-              Navigator.of(context).pop(history);
-            });
+          title: new Text(history.name),
+          leading: new Icon(
+            Icons.history,
+            color: Theme.of(context).accentColor,
+          ),
+          onTap: () {
+            Navigator.of(context).pop(history);
+          },
+        );
       },
       itemCount: _histories.length * 2,
     );
