@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quicka/repository/history_repository.dart';
 import 'package:quicka/model/history.dart';
+import 'dart:async';
 
 class HistoryList extends StatefulWidget {
   @override
@@ -60,5 +61,35 @@ class _HistoryListState extends State<HistoryList> {
     setState(() => _histories = histories);
   }
 
-  void _handleDelete() {}
+  Future<Null> _handleDelete() async {
+    return showDialog<Null>(
+      context: context,
+      child: new AlertDialog(
+        title: new Text('Remove all items'),
+        content: new SingleChildScrollView(
+          child: new ListBody(
+            children: <Widget>[
+              new Text(
+                  'Are you sure you want to delete all items from your history?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('CANCEL'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          new FlatButton(
+            child: new Text('DELETE'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              _historyRepository.clear().then((histories) {
+                _setHistories(histories);
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

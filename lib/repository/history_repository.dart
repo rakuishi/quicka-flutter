@@ -21,13 +21,13 @@ class HistoryRepository {
     return new Future.value(histories);
   }
 
-  Future<Null> save(List<History> histories) async {
+  Future<List<History>> save(List<History> histories) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(_key, JSON.encode(histories));
-    return new Future.value(null);
+    return new Future.value(histories);
   }
 
-  Future<Null> clear() async {
+  Future<List<History>> clear() async {
     return save(<History>[]);
   }
 
