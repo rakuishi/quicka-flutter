@@ -24,16 +24,24 @@ class _HistoryListState extends State<HistoryList> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('History'),
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.delete), onPressed: _handleDelete),
-        ],
+        actions: _buildActions(),
       ),
-      body: new Container(
-        color: Colors.white,
-        child: _buildListView(),
-      ),
+      body: _histories.isEmpty ? _buildEmptyView() : _buildListView(),
     );
+  }
+
+  List<Widget> _buildActions() {
+    if (_histories.isEmpty) return [];
+
+    return <Widget>[
+      new IconButton(icon: new Icon(Icons.delete), onPressed: _handleDelete),
+    ];
+  }
+
+  Widget _buildEmptyView() {
+    return new Center(
+        child: new Text('There is no item.',
+            style: Theme.of(context).textTheme.display1));
   }
 
   Widget _buildListView() {
