@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
 
   void _pushHistory() async {
     History history = await Navigator.of(context).pushNamed('/history');
-    _textController.text = history.name;
+    if (history != null) _textController.text = history.name;
   }
 
   void _pushSettings() {
