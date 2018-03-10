@@ -117,6 +117,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _pushSettings() {
-    // do something
+    Navigator.of(context).pushNamed('/settings');
   }
 }
