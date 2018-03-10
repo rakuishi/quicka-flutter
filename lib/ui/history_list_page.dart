@@ -3,12 +3,12 @@ import 'package:quicka/repository/history_repository.dart';
 import 'package:quicka/model/history.dart';
 import 'dart:async';
 
-class HistoryList extends StatefulWidget {
+class HistoryListPage extends StatefulWidget {
   @override
-  State createState() => new _HistoryListState();
+  State createState() => new _HistoryListPageState();
 }
 
-class _HistoryListState extends State<HistoryList> {
+class _HistoryListPageState extends State<HistoryListPage> {
   final HistoryRepository _historyRepository = new HistoryRepository();
   List<History> _histories = <History>[];
 
@@ -85,7 +85,8 @@ class _HistoryListState extends State<HistoryList> {
           child: new ListBody(
             children: <Widget>[
               new Text(
-                  'Are you sure you want to delete all items from your history?'),
+                'Are you sure you want to delete all items from your history?',
+              ),
             ],
           ),
         ),
