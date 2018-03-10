@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     return new IconTheme(
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+        margin: const EdgeInsets.only(left: 16.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
@@ -84,6 +84,7 @@ class _HomePageState extends State<HomePage> {
               margin: new EdgeInsets.only(left: 16.0),
               child: new IconButton(
                 icon: new Icon(Icons.history),
+                padding: new EdgeInsets.all(16.0),
                 onPressed: _pushHistory,
               ),
             ),
@@ -102,7 +103,8 @@ class _HomePageState extends State<HomePage> {
           .add(new History(text))
           .then((history) => debugPrint(history.toString()));
 
-      url = url.replaceAll('[UTF8]', Uri.encodeQueryComponent(text, encoding: UTF8));
+      url = url.replaceAll(
+          '[UTF8]', Uri.encodeQueryComponent(text, encoding: UTF8));
       if (await canLaunch(url)) {
         launch(url);
       } else {

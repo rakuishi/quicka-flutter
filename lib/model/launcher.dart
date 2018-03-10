@@ -14,7 +14,7 @@ class Launcher {
     this.icon = icon;
     this.color = color;
   }
-  
+
   static List<Launcher> defaults() {
     return [
       new Launcher('Wikipedia', 'http://ja.m.wikipedia.org/wiki/[UTF8]',
