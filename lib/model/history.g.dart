@@ -7,10 +7,19 @@ part of 'history.dart';
 // **************************************************************************
 
 History _$HistoryFromJson(Map<String, dynamic> json) =>
-    new History(json['name'] as String)..id = json['id'] as int;
+    new History(json['name'] as String)
+      ..id = json['id'] as int
+      ..createdAt = json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String);
 
 abstract class _$HistorySerializerMixin {
   int get id;
   String get name;
-  Map<String, dynamic> toJson() => <String, dynamic>{'id': id, 'name': name};
+  DateTime get createdAt;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'name': name,
+        'createdAt': createdAt?.toIso8601String()
+      };
 }

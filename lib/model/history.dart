@@ -6,15 +6,18 @@ part 'history.g.dart';
 class History extends Object with _$HistorySerializerMixin {
   int id;
   String name;
+  DateTime createdAt;
 
   History(String name) {
-    this.id = new DateTime.now().millisecondsSinceEpoch;
+    var now = new DateTime.now();
+    this.id = now.millisecondsSinceEpoch;
     this.name = name;
+    this.createdAt = now;
   }
 
   @override
   String toString() {
-    return 'History { id: $id, name: $name }';
+    return 'History { id: $id, name: $name, createdAt: $createdAt }';
   }
 
   factory History.fromJson(Map<String, dynamic> json) =>

@@ -59,6 +59,7 @@ class _HistoryListPageState extends State<HistoryListPage> {
         final history = _histories[index];
         return new ListTile(
           title: new Text(history.name),
+          subtitle: new Text(history.createdAt.toIso8601String()),
           leading: new Icon(
             Icons.history,
             color: Theme.of(context).accentColor,

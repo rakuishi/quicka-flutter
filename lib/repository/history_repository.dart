@@ -33,7 +33,15 @@ class HistoryRepository {
 
   Future<History> add(History history) async {
     await findAll().then((histories) {
-      histories.add(history);
+      // Remove same value
+      for (History temp in histories) {
+        if (temp.name == history.name) {
+          histories.remove(temp);
+          break;
+        }
+      }
+
+      histories.insert(0, history);
       save(histories);
     });
 
