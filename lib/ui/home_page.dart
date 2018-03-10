@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: new Container(
-        color: Colors.white,
         child: new Column(
           children: <Widget>[
             new Flexible(
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               height: 1.0,
             ),
             new Container(
-              decoration: new BoxDecoration(color: Theme.of(context).cardColor),
+              decoration: new BoxDecoration(color: Colors.white),
               child: _buildTextComponent(),
             ),
           ],
@@ -70,6 +69,9 @@ class _HomePageState extends State<HomePage> {
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
         margin: const EdgeInsets.only(left: 16.0),
+        // Following padding is for avoiding this bug(?)
+        // @see https://github.com/flutter/friendlychat-steps/issues/54
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
