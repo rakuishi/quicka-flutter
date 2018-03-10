@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:quicka/repository/history_repository.dart';
 import 'package:quicka/model/history.dart';
+import 'package:quicka/model/launcher.dart';
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _textController = new TextEditingController();
   final HistoryRepository _historyRepository = new HistoryRepository();
+  final List<Launcher> _launchers = Launcher.defaults();
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +52,16 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, i) {
         if (i.isOdd) return new Divider(height: 1.0);
 
+        final index = i ~/ 2;
+        final launcher = _launchers[index];
         return new ListTile(
-          title: new Text('URL'),
-          leading: new Icon(
-            Icons.favorite,
-            color: Theme.of(context).accentColor,
-          ),
-          onTap: () {
-            // do something
-          },
+          title: new Text(launcher.name),
+          subtitle: new Text(launcher.url),
+          leading: new Icon(launcher.icon, color: launcher.color),
+          onTap: () => _launch(url: launcher.url),
         );
       },
-      itemCount: 10,
+      itemCount: _launchers.length * 2,
     );
   }
 
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             new Flexible(
               child: new TextField(
                 controller: _textController,
-                onSubmitted: _handleSubmitted,
+                onSubmitted: (text) => _launch(),
                 decoration: new InputDecoration.collapsed(hintText: 'Search'),
                 style: Theme.of(context).textTheme.title,
               ),
@@ -92,22 +93,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _handleSubmitted(String text) {
+  void _launch({String url = 'http://www.google.com/search?q=[UTF8]'}) async {
+    String text = _textController.text;
     _textController.clear();
-    if (text.length > 0) {
-      _historyRepository
-          .add(new History(text))
-          .then((history) => debugPrint(history.toString()))
-          .whenComplete(() => _launchURL(
-              "http://www.google.com/search?q=${Uri.encodeComponent(text)}"));
-    }
-  }
 
-  void _launchURL(urlString) async {
-    if (await canLaunch(urlString)) {
-      launch(urlString);
-    } else {
-      debugPrint('Could not launch $urlString');
+    if (text.length > 0) {
+      await _historyRepository
+          .add(new History(text))
+          .then((history) => debugPrint(history.toString()));
+
+      url = url.replaceAll('[UTF8]', Uri.encodeQueryComponent(text, encoding: UTF8));
+      if (await canLaunch(url)) {
+        launch(url);
+      } else {
+        debugPrint('Could not launch $url');
+      }
     }
   }
 
