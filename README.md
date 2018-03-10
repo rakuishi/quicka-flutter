@@ -2,10 +2,7 @@
 
 > Quicka - 検索を快適に
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+<img src="/.github/Screenshot.png" width="360" />
 
 ## Flutter commands
 
