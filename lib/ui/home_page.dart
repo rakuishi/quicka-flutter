@@ -78,17 +78,14 @@ class _HomePageState extends State<HomePage> {
               child: new TextField(
                 controller: _textController,
                 onSubmitted: (text) => _launch(),
-                decoration: new InputDecoration.collapsed(hintText: 'Search'),
+                decoration: new InputDecoration(hintText: 'Search'),
                 style: Theme.of(context).textTheme.title,
               ),
             ),
-            new Container(
-              margin: new EdgeInsets.only(left: 16.0),
-              child: new IconButton(
-                icon: new Icon(Icons.history),
-                padding: new EdgeInsets.all(16.0),
-                onPressed: _pushHistory,
-              ),
+            new IconButton(
+              icon: new Icon(Icons.history),
+              padding: new EdgeInsets.all(16.0),
+              onPressed: _pushHistory,
             ),
           ],
         ),
